@@ -21,12 +21,10 @@ Add New Post
 		<input required="required" value="{{ old('title') }}" placeholder="Enter title here" type="text" name = "title"class="form-control" />
 	</div>
 	<div class="form-group">
-		<select name="category">
-		  <option value="PHP">PHP</option>
-		  <option value="Javascript">Javascript</option>
-		  <option value="MySQL">MySQL</option>
-		  <option value="DevOps">DevOps</option>
-		  <option value="Others">Others</option>
+		<select required="required" class="form-control" name="category">
+		    @foreach ($categories as $key => $cat)
+		        <option value="{{ $cat->category_name}}">{{ $cat->category_name }}</option>
+		    @endforeach
 		</select>
 	</div>
 	<div class="form-group">

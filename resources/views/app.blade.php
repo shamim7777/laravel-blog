@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Blog Demo | Find All Together</title>
+		<title>Blog Demo</title>
 
 		<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
@@ -28,23 +28,31 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="http://www.shamimahmed.net">Demo</a>
+					<a class="navbar-brand" href="{{ url('/') }}/">Demo</a>
 				</div>
 
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li>
-							<a href="{{ url('/') }}">Home</a>
-						</li>
+						 <li>
+								<a href="{{ url('/') }}/">Home</a>
+						 </li>
+
+						@foreach ( $categories as $cat )
+							<li>
+								<a href="{{ url('/category') }}/{{ $cat->category_name }}">{{ $cat->category_name }}</a>
+							</li>
+
+						@endforeach
 					</ul>
 
+		
 					<ul class="nav navbar-nav navbar-right">
 						@if (Auth::guest())
 						<li>
-							<a href="{{ url('/auth/login') }}">Login</a>
+							<a href="{{ url('/login') }}">Login</a>
 						</li>
 						<li>
-							<a href="{{ url('/auth/register') }}">Register</a>
+							<a href="{{ url('/register') }}">Register</a>
 						</li>
 						@else
 						<li class="dropdown">

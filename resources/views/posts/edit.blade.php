@@ -22,11 +22,11 @@ Edit Post
 	</div>
  
 	<div class="form-group">
-<select required="required" class="form-control" name="category">
-    @foreach ($categories as $key => $cat)
-        <option value="{{ $cat}}" {{ ($post->category == $cat ? "selected":"") }}>{{ $cat }}</option>
-    @endforeach
-</select>
+		<select required="required" class="form-control" name="category">
+		    @foreach ($categories as $key => $cat)
+		        <option value="{{ $cat->category_name}}" {{ ($post->category == $cat->category_name ? "selected":"") }}>{{ $cat->category_name }}</option>
+		    @endforeach
+		</select>
 	</div>
  
 	<div class="form-group">

@@ -2,6 +2,7 @@
 
 use App\Posts;
 use App\User;
+use App\Category;
 use Redirect;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostFormRequest;
@@ -20,9 +21,23 @@ class PostController extends Controller {
 	 */
 	public function index()
 	{
+
 		$posts = Posts::where('active','1')->orderBy('created_at','desc')->paginate(5);
 		$title = 'Latest Posts';
-		return view('home')->withPosts($posts)->withTitle($title);
+		return view('home')->withPosts($posts)->withTitle($title)->with('categories',Category::all());
+	}
+
+    /**
+	 * Show by category.
+	 *
+	 * @return Response
+	 */
+	public function view_category(Request $request, $id)
+	{
+ 
+		$posts = Posts::where('category',$id)->orderBy('created_at','desc')->paginate(5);
+		$title = 'Latest Posts'; 
+		return view('home')->withPosts($posts)->withTitle($title)->with('categories',Category::all());
 	}
 
 	/**
@@ -35,7 +50,7 @@ class PostController extends Controller {
 		// 
 		if($request->user()->can_post())
 		{
-			return view('posts.create');
+			return view('posts.create')->with('categories',Category::all());
 		}	
 		else 
 		{
@@ -59,7 +74,7 @@ class PostController extends Controller {
 		$duplicate = Posts::where('slug',$post->slug)->first();
 		if($duplicate)
 		{
-			return redirect('new-post')->withErrors('Title already exists.')->withInput();
+			return redirect('new-post')->withErrors('Title already exists.')->withInput()->with('categories',Category::all());
 		}	
 		
 		$post->author_id = $request->user()->id;
@@ -74,7 +89,7 @@ class PostController extends Controller {
 			$message = 'Post published successfully';
 		}
 		$post->save();
-		return redirect('edit/'.$post->slug)->withMessage($message);
+		return redirect('edit/'.$post->slug)->withMessage($message)->with('categories',Category::all());
 	}
 
 	/**
@@ -97,7 +112,7 @@ class PostController extends Controller {
 		{
 			return redirect('/')->withErrors('requested page not found');
 		}
-		return view('posts.show')->withPost($post)->withComments($comments);
+		return view('posts.show')->withPost($post)->withComments($comments)->with('categories',Category::all());
 	}
 
 	/**
@@ -109,19 +124,10 @@ class PostController extends Controller {
 	public function edit(Request $request,$slug)
 	{
 
-		$categories = ["PHP",
-                       "Javascript",
-                       "MySQL",
-                       "Others"];
-
-
 		$post = Posts::where('slug',$slug)->first();
 
-	 
-
 		if($post && ($request->user()->id == $post->author_id || $request->user()->is_admin()))
-			return view('posts.edit')->with('post',$post)
-									 ->with('categories',$categories);
+			return view('posts.edit')->with('post',$post)->with('categories',Category::all( ));
 		else 
 		{
 			return redirect('/')->withErrors('you have not sufficient permissions');

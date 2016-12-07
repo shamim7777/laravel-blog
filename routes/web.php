@@ -23,12 +23,17 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/','PostController@index');
 Route::get('/home',['as' => 'home', 'uses' => 'PostController@index']);
+//authentication
  
 // check for logged in user
 Route::group(['middleware' => ['auth']], function()
 {
  // show new post form
  Route::get('new-post','PostController@create');
+
+ // show new post form
+ Route::get('category/{id}','PostController@view_category');
+
  // save new post
  Route::post('new-post','PostController@store');
  // edit post form
@@ -50,5 +55,8 @@ Route::group(['middleware' => ['auth']], function()
 Route::get('user/{id}','UserController@profile')->where('id', '[0-9]+');
 // display list of posts
 Route::get('user/{id}/posts','UserController@user_posts')->where('id', '[0-9]+');
+
+ 
+
 // display single post
 Route::get('/{slug}',['as' => 'post', 'uses' => 'PostController@show'])->where('slug', '[A-Za-z0-9-_]+');

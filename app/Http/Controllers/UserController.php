@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Category;
 use App\Posts;
 
 use Illuminate\Http\Request;
 
 class UserController extends Controller {
 
+ 
 		/*
 	 * Display the posts of a particular user
 	 * 
@@ -21,7 +23,7 @@ class UserController extends Controller {
 		//
 		$posts = Posts::where('author_id',$id)->where('active','1')->orderBy('created_at','desc')->paginate(5);
 		$title = User::find($id)->name;
-		return view('home')->withPosts($posts)->withTitle($title);
+		return view('home')->withPosts($posts)->withTitle($title)->with('categories',Category::all( ));;
 	}
 
 	public function user_posts_all(Request $request)
@@ -30,7 +32,7 @@ class UserController extends Controller {
 		$user = $request->user();
 		$posts = Posts::where('author_id',$user->id)->orderBy('created_at','desc')->paginate(5);
 		$title = $user->name;
-		return view('home')->withPosts($posts)->withTitle($title);
+		return view('home')->withPosts($posts)->withTitle($title)->with('categories',Category::all( ));;
 	}
 	
 	public function user_posts_draft(Request $request)
@@ -62,7 +64,7 @@ class UserController extends Controller {
 		$data['posts_draft_count'] = $data['posts_count'] - $data['posts_active_count'];
 		$data['latest_posts'] = $data['user']->posts->where('active', 1)->take(5);
 		$data['latest_comments'] = $data['user']->comments->take(5);
-		return view('admin.profile', $data);
+		return view('admin.profile', $data)->with('categories',Category::all());;
 	}
 
 }
