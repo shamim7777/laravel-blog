@@ -26,7 +26,7 @@ class PostController extends Controller {
 		$title = 'Latest Posts';
 		return view('home')->withPosts($posts)->withTitle($title)->with('categories',Category::all());
 	}
-
+ 
     /**
 	 * Show by category.
 	 *
