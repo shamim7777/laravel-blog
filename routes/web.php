@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+ 
 Auth::routes();
 
 
@@ -26,6 +23,12 @@ Route::get('logout', function () {
  
 Route::get('/','PostController@index');
 Route::get('/home',['as' => 'home', 'uses' => 'PostController@index']);
+
+
+// show new post form
+Route::get('category/{id}','PostController@view_category');
+
+
 //authentication
  
 // check for logged in user
@@ -34,8 +37,7 @@ Route::group(['middleware' => ['auth']], function()
  // show new post form
  Route::get('new-post','PostController@create');
 
- // show new post form
- Route::get('category/{id}','PostController@view_category');
+
 
  // save new post
  Route::post('new-post','PostController@store');
