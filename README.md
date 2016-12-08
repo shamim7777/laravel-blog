@@ -1,6 +1,7 @@
 # Simple blog with laravel 5.3
 
-[Live demo|http://ec2-52-53-213-226.us-west-1.compute.amazonaws.com/]
+[Live Demo](http://ec2-52-53-213-226.us-west-1.compute.amazonaws.com/)
+ 
 
 #Feature list:  
 
