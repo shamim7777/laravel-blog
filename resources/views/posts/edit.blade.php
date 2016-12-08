@@ -23,6 +23,9 @@ Edit Post
  
 	<div class="form-group">
 		<select required="required" class="form-control" name="category">
+
+			<option value="" >Select Category</option>
+
 		    @foreach ($categories as $key => $cat)
 		        <option value="{{ $cat->category_name}}" {{ ($post->category == $cat->category_name ? "selected":"") }}>{{ $cat->category_name }}</option>
 		    @endforeach
@@ -43,6 +46,6 @@ Edit Post
 	<input type="submit" name='publish' class="btn btn-success" value = "Publish"/>
 	@endif
 	<input type="submit" name='save' class="btn btn-default" value = "Save As Draft" />
-	<a href="{{  url('delete/'.$post->id.'?_token='.csrf_token()) }}" class="btn btn-danger">Delete</a>
+	<a id='delete-post-btn' href="{{  url('delete/'.$post->id.'?_token='.csrf_token()) }}" class="btn btn-danger">Delete</a>
 </form>
 @endsection

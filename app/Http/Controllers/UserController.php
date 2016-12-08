@@ -67,4 +67,6 @@ class UserController extends Controller {
 		return view('admin.profile', $data)->with('categories',Category::all());;
 	}
 
+ 
+
 }

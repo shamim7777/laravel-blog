@@ -72,10 +72,7 @@ class PostController extends Controller {
 		$post->slug = str_slug($post->title);
 		
 		$duplicate = Posts::where('slug',$post->slug)->first();
-		if($duplicate)
-		{
-			return redirect('new-post')->withErrors('Title already exists.')->withInput()->with('categories',Category::all());
-		}	
+	 
 		
 		$post->author_id = $request->user()->id;
 		if($request->has('save'))
@@ -88,8 +85,20 @@ class PostController extends Controller {
 			$post->active = 1;
 			$message = 'Post published successfully';
 		}
-		$post->save();
-		return redirect('edit/'.$post->slug)->withMessage($message)->with('categories',Category::all());
+		
+
+
+       	if($duplicate)
+		{
+			$response = array('status' => false,'result'=> false,  'message' => "Something went wrong!!", 'classname'=>'danger');
+		}else
+		{		
+			  $post->save();
+		      $response = array('status' => true,'result'=> true,  'message' => "Post successfully inserted.", 'classname'=>'success');
+		}	
+
+       return response($response)
+            ->header('Content-Type', 'application/json');
 	}
 
 	/**

@@ -17,10 +17,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
 
+Route::get('logout', function () {
+    Auth::logout();
+     return redirect('/');
 
-
+});
+ 
 Route::get('/','PostController@index');
 Route::get('/home',['as' => 'home', 'uses' => 'PostController@index']);
 //authentication
@@ -50,7 +53,13 @@ Route::group(['middleware' => ['auth']], function()
  Route::post('comment/add','CommentController@store');
  // delete comment
  Route::post('comment/delete/{id}','CommentController@distroy');
+
+ 
+
 });
+
+
+
 //users profile
 Route::get('user/{id}','UserController@profile')->where('id', '[0-9]+');
 // display list of posts
@@ -60,3 +69,5 @@ Route::get('user/{id}/posts','UserController@user_posts')->where('id', '[0-9]+')
 
 // display single post
 Route::get('/{slug}',['as' => 'post', 'uses' => 'PostController@show'])->where('slug', '[A-Za-z0-9-_]+');
+
+

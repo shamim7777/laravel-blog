@@ -56,7 +56,7 @@
 						</li>
 						@else
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Welcome! {{ Auth::user()->name }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								@if (Auth::user()->can_post())
 								<li>
@@ -70,7 +70,7 @@
 									<a href="{{ url('/user/'.Auth::id()) }}">My Profile</a>
 								</li>
 								<li>
-									<a href="{{ url('/auth/logout') }}">Logout</a>
+									<a href="{{ url('/logout') }}">Logout</a>
 								</li>
 							</ul>
 						</li>
@@ -122,5 +122,7 @@
 		<!-- Scripts -->
 		<script src="{{ asset('/js/jquery.min-2.1.3.js') }}"></script>
 		<script src="{{ asset('/js/bootstrap.min-3.3.1.js') }}"></script>
+		<script src="{{ asset('/js/custom/jqBootstrapValidation.js') }}"></script>
+		<script src="{{ asset('/js/custom/app.js') }}"></script>
 	</body>
 </html>
