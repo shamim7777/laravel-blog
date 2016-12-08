@@ -36,7 +36,7 @@ class PostController extends Controller {
 	{
  
 		$posts = Posts::where('category',$id)->orderBy('created_at','desc')->paginate(5);
-		$title = 'Latest Posts'; 
+		$title = 'Latest Posts :'.$id; 
 		return view('home')->withPosts($posts)->withTitle($title)->with('categories',Category::all());
 	}
 

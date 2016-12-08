@@ -25,7 +25,7 @@ Route::get('/','PostController@index');
 Route::get('/home',['as' => 'home', 'uses' => 'PostController@index']);
 
 
-// show new post form
+// show post by catrogy 
 Route::get('category/{id}','PostController@view_category');
 
 
@@ -36,8 +36,6 @@ Route::group(['middleware' => ['auth']], function()
 {
  // show new post form
  Route::get('new-post','PostController@create');
-
-
 
  // save new post
  Route::post('new-post','PostController@store');

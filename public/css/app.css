@@ -161,3 +161,8 @@ select:focus:required:invalid:focus {
 .white {
     color: #FFFFFF !important;
 }
+
+.social-buttons a{
+	font-size: 40px;
+	text-decoration: none;
+}

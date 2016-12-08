@@ -21,6 +21,23 @@
 	<div>
 		{!! $post->body !!}
 	</div>	
+
+	<div class="social-buttons">
+			    <a href="https://www.facebook.com/sharer/sharer.php?u={{ url($post->slug) }}"
+			       target="_blank">
+			       <i class="fa fa-facebook-official"></i>
+			    </a>
+			    <a href="https://twitter.com/intent/tweet?url={{ url($post->slug) }}"
+			       target="_blank">
+			        <i class="fa fa-twitter-square"></i>
+			    </a>
+			    <a href="https://plus.google.com/share?url={{ url($post->slug) }}"
+			       target="_blank">
+			       <i class="fa fa-google-plus-square"></i>
+			    </a>
+			    
+	 </div>
+
 	<div>
 		<h2>Leave a comment</h2>
 	</div>
@@ -37,6 +54,8 @@
 				</div>
 				<input type="submit" name='post_comment' class="btn btn-success" value = "Post"/>
 			</form>
+
+			
 		</div>
 	@endif
 	

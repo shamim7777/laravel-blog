@@ -39,6 +39,17 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+
+    public function getRegister()
+    {
+        $products = \App\Product::all();
+        $data = [
+            'products' => $products
+        ];
+
+        return view('auth.register')->with($data);
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
